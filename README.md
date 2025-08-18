@@ -1,7 +1,7 @@
 # Embellished
 
 A tiny programme to create EPub files from [lightnovelstranslations.com](https://lightnovelstranslations.com/).
-This is a recreation of a tool I originally wrote in Node/JS named `embellish` created to learn Dlang.
+This is a Dlang rewrite of a tool I originally wrote in Node/JS named `embellish`.
 
 ## Usage
 
@@ -22,7 +22,7 @@ where `book.json` is a json file of the following format:
 }
 ```
 
-The app will extract each chapter until it reach a chapter with name `Epilogue` or no further next page links.
+The app will extract each chapter until it reach a chapter with name `Epilogue`, or a page without next page links.
 
 ## Building
 
