@@ -1,3 +1,8 @@
+/*
+*		SPDX-License-Identifier: GPL-2.0-or-later
+*		Copyright 2025 Kavinu Nethsara
+*/
+
 module downloader;
 
 import std.stdio, std.format, std.array, std.algorithm;

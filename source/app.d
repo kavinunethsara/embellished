@@ -1,3 +1,8 @@
+/*
+*		SPDX-License-Identifier: GPL-2.0-or-later
+*		Copyright 2025 Kavinu Nethsara
+*/
+
 import std.stdio, std.algorithm, std.array, std.process;
 import std.json, std.file;
 import epub2;

@@ -1,3 +1,8 @@
+/*
+*		SPDX-License-Identifier: GPL-2.0-or-later
+*		Copyright 2025 Kavinu Nethsara
+*/
+
 module bookinfo;
 
 import std.json, std.typecons;

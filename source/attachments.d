@@ -1,3 +1,8 @@
+/*
+*		SPDX-License-Identifier: GPL-2.0-or-later
+*		Copyright 2025 Kavinu Nethsara
+*/
+
 module attachments;
 
 import std.json, std.file, std.typecons, std.stdio, std.array;
