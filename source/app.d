@@ -4,20 +4,24 @@
 */
 
 import std.stdio, std.algorithm, std.array, std.process;
-import std.json, std.file;
+import std.json, std.file, std.format;
 import epub2;
 import requests;
 
 import attachments;
 import bookinfo;
 import downloader;
+import about;
 
 int main(string[] args)
 {
-	if (args.count != 2) {
-		writeln("JSON file for book info required.");
-		return 1;
+	if (args.count < 2 || args[1] == "--help" || args[1] == "-h") {
+		writeln(help);
+		return 0;
 	}
+
+	if (args.count > 2)
+		writeln("Ignoring all arguments after ", args[1]);
 
 	const filename = args[1];
 	auto req  = Request();
