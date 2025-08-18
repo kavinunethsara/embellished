@@ -11,6 +11,16 @@ import requests;
 
 import bookinfo;
 
+/**
+*	Recursive function to process chapters into a Data[] array.
+* It follows each `.next_story a` link until:
+*		1. It arrives at a page without a `.next_stroy a` link or
+* 	2. It finds a page with title 'Epilogue'
+*Params:
+* `link` URL of the starting point
+* `info` BookInfo object to save the chapters to. Passed by reference.
+* `req` Request object to make network requests with
+*/
 void assign_chapters(string link, ref BookInfo info, ref Request req) @trusted {
 	writeln("Getting page ", link, " ...");
 	auto results =req.get(link).responseBody();
@@ -24,16 +34,19 @@ void assign_chapters(string link, ref BookInfo info, ref Request req) @trusted {
 
 	auto next_story = doc.bySelector(".next_story_btn a").array;
 
-
 	info.data ~= chapter;
+
+	// TODO: Add an option to specify a different terminating title.
 	if (chapter.title == "Epilogue" || next_story.count() == 0) {
 		writeln("Last chapter reached. Finishing ...");
 		return;
 	}
 
+	// Follow the `.next_story a` link recursively
 	assign_chapters(next_story[0].getAttribute("href"), info, req);
 }
 
+/// Wraps the page with the page layout
 string wrap_page(const string title, const string html) {
 	return page_template.format(title, html);
 }

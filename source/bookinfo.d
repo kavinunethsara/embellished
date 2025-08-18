@@ -22,7 +22,15 @@ struct Data {
 	string content;
 }
 
-
+/**
+*	Return string values from JSONValue objects.
+*	If the value is not present or is not a string, a `null` nullable is returned
+*Params:
+* `object` A JSONValue from which to extract the value
+* `field` The filed to extract
+*Returns:
+* A Nullable!string with the return value or null (if a strnig value is not present in the field)
+*/
 Nullable!string value(const JSONValue object, string field) @safe {
 	Nullable!string val;
 	try {

@@ -9,6 +9,16 @@ import std.json, std.file, std.typecons, std.stdio, std.array;
 import epub2;
 import requests;
 
+/**
+* Downloads and sets the cover image for the ebook.
+*Params:
+* `content` A JSONValue containing a ["cover"] field pointing to image URL
+* `req` Request object to download the image
+*Returns:
+* A Nullable!Attachment of the cover image (id: cover)
+* or Null incase of error downloading the image.
+* Also returns Null if `content` does not contain a ["cover"] field
+*/
 Nullable!Attachment get_image(const JSONValue content, ref Request req) @trusted {
 	Nullable!Attachment image;
 	try {
@@ -16,6 +26,8 @@ Nullable!Attachment get_image(const JSONValue content, ref Request req) @trusted
 		writeln("Getting cover image ",image_url," ...");
 		auto response = req.get(image_url);
 		string type = response.responseHeaders["content-type"];
+		// HACK: Most image formats have a mime of form image/{extension}.
+		// Trimming the 'image/' part out will give the extension most of the time.
 		auto extension = type[6..$];
 		writeln("Cover image is of type ",type,". Therefore using extension .", extension);
 		image = Attachment("cover", "cover."~extension, type, response.responseBody().array);
@@ -25,6 +37,15 @@ Nullable!Attachment get_image(const JSONValue content, ref Request req) @trusted
 	return image;
 }
 
+/**
+* Sets the style sheet for the ebook.
+*Params:
+* `content` A JSONValue containing a ["stylesheet"] field with path to a local file
+*Returns:
+* A Nullable!Attachment of the style sheet (id: style, file: style.css)
+* or Null incase of the file not existing / being unreadable.
+* Also returns Null if `content` does not contain a ["stylesheet"] field
+*/
 Nullable!Attachment get_style(const JSONValue content) @trusted {
 	Nullable!Attachment stylesheet;
 	try {
