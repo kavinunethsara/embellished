@@ -4,10 +4,12 @@
 	],
 	"copyright": "Copyright © 2025, Kavinu Nethsara",
 	"dependencies": {
-		"epub2": "~>1.2.0",
 		"parserino": "~>0.2.7",
 		"requests": "~>2.1.3",
 	},
+	"stringImportPaths": [
+		"source"
+	],
 	"description": "A LightNoveTranslations.com to EPub converter",
 	"license": "GPL-2.0-or-later",
 	"name": "embelished"
