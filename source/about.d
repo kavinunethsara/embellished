@@ -1,3 +1,8 @@
+/*
+*		SPDX-License-Identifier: GPL-2.0-or-later
+*		SPDX-FileCopyrightText: 2025 Kavinu Nethsara <kavinunethsarakoswattage@gmail.com>
+*/
+
 module about;
 
 const help = `
