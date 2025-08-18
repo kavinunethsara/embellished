@@ -30,13 +30,5 @@ void assign_chapters(string link, ref BookInfo info, ref Request req) @trusted {
 }
 
 string wrap_page(const string title, const string html) {
-	return `<?xml version="1.0" encoding="UTF-8"?>
-					<!DOCTYPE html>
-					<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
-						<head>
-						<meta charset="UTF-8" />
-						<title>%s</title>
-						<link rel="stylesheet" type="text/css" href="style.css" />
-						</head>
-					<body>%s</body></html>`.format(title, html);
+	return page_template.format(title, html);
 }

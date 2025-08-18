@@ -27,3 +27,13 @@ Nullable!string value(const JSONValue object, string field) @safe {
 	}
 	return val;
 }
+
+const page_template = `<?xml version="1.0" encoding="UTF-8"?>
+					<!DOCTYPE html>
+					<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
+						<head>
+						<meta charset="UTF-8" />
+						<title>%s</title>
+						<link rel="stylesheet" type="text/css" href="style.css" />
+						</head>
+					<body>%s</body></html>`;
