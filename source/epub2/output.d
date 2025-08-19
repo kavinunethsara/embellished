@@ -63,7 +63,7 @@ void toEpub(Book book, ZipArchive zf)
     }
     foreach (attachment; book.attachments)
     {
-        save(zf, attachment.filename, attachment.content, true);
+        save_ubyte(zf, attachment.filename, attachment.content);
     }
 }
 
@@ -73,10 +73,10 @@ enum container_xml = import("container.xml");
 
 void save(ZipArchive zf, string name, const char[] content)
 {
-    save(zf, name, cast(const(ubyte[]))content, true);
+    save_ubyte(zf, name, cast(const(ubyte[]))content);
 }
 
-void save(ZipArchive zf, string name, const(ubyte[]) content, bool _noe) @trusted
+void save_ubyte(ZipArchive zf, string name, const(ubyte[]) content) @trusted
 {
     auto member = new ArchiveMember();
     member.name = name;
