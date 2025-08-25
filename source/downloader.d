@@ -14,7 +14,7 @@ import bookinfo;
 /**
 *	Recursive function to process chapters into a Data[] array.
 * It follows each `.next_story a` link until:
-*		1. It arrives at a page without a `.next_stroy a` link or
+*		1. It arrives at a page without a `.next_stroy a` or `.+next` link or
 * 	2. It finds a page with title 'Epilogue'
 *Params:
 * `link` URL of the starting point
@@ -28,11 +28,11 @@ void assign_chapters(string link, ref BookInfo info, ref Request req) @trusted {
 
 	Document doc = html;
 	Data chapter;
-	chapter.title = doc.bySelector("title").frontOrThrow.innerText;
-	const content =  doc.bySelector(".text_story").frontOrThrow.innerHTML;
+	chapter.title = doc.bySelector("title, .chapter__title").frontOrThrow.innerText;
+	const content =  doc.bySelector(".text_story, #chapter-content div").frontOrThrow.innerHTML;
 	chapter.content = wrap_page(chapter.title, content);
 
-	auto next_story = doc.bySelector(".next_story_btn a").array;
+	auto next_story = doc.bySelector(".next_story_btn a, ._next").array;
 
 	info.data ~= chapter;
 
