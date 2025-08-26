@@ -51,6 +51,14 @@ int main(string[] args)
 	if (!info.author.isNull())
 		book.author = info.author.get();
 
+	const image = get_cover(content, req);
+
+	if (!image.isNull()) {
+		book.coverImage = image.get();
+		book.attachments ~= book.coverImage;
+		book.chapters = [Chapter("Cover Page",true, generate_cover("./"~book.coverImage.filename))];
+	}
+
 	auto chps = info.data.map!((chap) {
 		return Chapter(
 			chap.title,
@@ -58,14 +66,7 @@ int main(string[] args)
 			chap.content
 		);
 	});
-	book.chapters = chps.array;
-
-	const image = get_cover(content, req);
-
-	if (!image.isNull()) {
-		book.coverImage = image.get();
-		book.attachments ~= book.coverImage;
-	}
+	book.chapters ~= chps.array;
 
 	foreach (chap; info.data) {
 		book.attachments ~= chap.images;

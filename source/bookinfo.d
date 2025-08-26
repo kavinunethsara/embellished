@@ -5,7 +5,7 @@
 
 module bookinfo;
 
-import std.json, std.typecons;
+import std.json, std.typecons, std.format;
 import epub2;
 
 struct BookInfo {
@@ -52,3 +52,7 @@ const page_template = `<?xml version="1.0" encoding="UTF-8"?>
 						<link rel="stylesheet" type="text/css" href="style.css" />
 						</head>
 					<body>%s</body></html>`;
+
+string generate_cover(const string img) {
+	return page_template.format("Cover Page", "<img src='"~img~"' style='height: 100%;' />");
+}
