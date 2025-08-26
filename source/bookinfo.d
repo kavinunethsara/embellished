@@ -6,6 +6,7 @@
 module bookinfo;
 
 import std.json, std.typecons;
+import epub2;
 
 struct BookInfo {
 	string title;
@@ -20,6 +21,7 @@ struct BookInfo {
 struct Data {
 	string title;
 	string content;
+	Attachment[] images = [];
 }
 
 /**

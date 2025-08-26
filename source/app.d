@@ -60,11 +60,15 @@ int main(string[] args)
 	});
 	book.chapters = chps.array;
 
-	const image = get_image(content, req);
+	const image = get_cover(content, req);
 
 	if (!image.isNull()) {
 		book.coverImage = image.get();
 		book.attachments ~= book.coverImage;
+	}
+
+	foreach (chap; info.data) {
+		book.attachments ~= chap.images;
 	}
 
 	const stylesheet = get_style(content);

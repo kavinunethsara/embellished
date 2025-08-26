@@ -19,7 +19,7 @@ import requests;
 * or Null incase of error downloading the image.
 * Also returns Null if `content` does not contain a ["cover"] field
 */
-Nullable!Attachment get_image(const JSONValue content, ref Request req) @trusted {
+Nullable!Attachment get_cover(const JSONValue content, ref Request req) @trusted {
 	Nullable!Attachment image;
 	try {
 		const image_url = content["cover"].str();
@@ -31,6 +31,33 @@ Nullable!Attachment get_image(const JSONValue content, ref Request req) @trusted
 		auto extension = type[6..$];
 		writeln("Cover image is of type ",type,". Therefore using extension .", extension);
 		image = Attachment("cover", "cover."~extension, type, response.responseBody().array);
+	} catch (Exception e) {
+		destroy(e);
+	}
+	return image;
+}
+
+/**
+* Downloads and return an image for the ebook.
+*Params:
+*	`id`	Image Id
+* `image_url` Image url
+* `req` Request object to download the image
+*Returns:
+* A Nullable!Attachment of the image
+* or Null incase of error downloading the image.
+*/
+Nullable!Attachment get_image(const string id, const string image_url, ref Request req) @trusted {
+	Nullable!Attachment image;
+	try {
+		writeln("Getting image ",image_url," ...");
+		auto response = req.get(image_url);
+		string type = response.responseHeaders["content-type"];
+		// HACK: Most image formats have a mime of form image/{extension}.
+		// Trimming the 'image/' part out will give the extension most of the time.
+		auto extension = type[6..$];
+		writeln("Image "~id~" is of type ",type,". Therefore using extension .", extension);
+		image = Attachment(id, id~"."~extension, type, response.responseBody().array);
 	} catch (Exception e) {
 		destroy(e);
 	}
